@@ -1,23 +1,31 @@
-"""Stub module for posting messages to social media services.
-This will be connected to real APIs (X, Telegram) in the future.
-"""
-
+import random
+import time
+import schedule
 from datetime import datetime
+from message_generator import generate_message
 
 
-def post_message(message: str) -> None:
-    """Simulate sending a message by printing it with a timestamp."""
+def post_message() -> None:
+    """Generate a random-toned shill message and print it with timestamp."""
+    tone = random.choice(["hype", "warning", "mystic"])
+    message = generate_message(tone)
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    separator = "-" * 19
-    print(separator)
-    print(f"[{timestamp}] {message}")
-    print(separator)
+    print("-" * 26)
+    print(f"[{timestamp}] [BOMBUCKS SHILL] 🚨")
+    print(message)
+    print("-" * 26)
 
 
-def main() -> None:
-    """Run a simple test of the posting functionality."""
-    post_message("$BOMBUCKS is the future. BUY OR DIE.")
+# Schedule postings every 10 minutes
+schedule.every(10).minutes.do(post_message)
 
 
 if __name__ == "__main__":
+    print("🚀 BOMBUCKS SHILL BOT ACTIVATED")
+    post_message()  # Primera vez
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
     main()
+
