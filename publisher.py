@@ -1,16 +1,17 @@
 import random
 import time
-
 import schedule
-
+from datetime import datetime
 from message_generator import generate_message
 
 
 def post_message() -> None:
-    """Generate a random-toned shill message and print it."""
+    """Generate a random-toned shill message and print it with timestamp."""
     tone = random.choice(["hype", "warning", "mystic"])
     message = generate_message(tone)
-    print("[BOMBUCKS SHILL] 🚨")
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print("-" * 26)
+    print(f"[{timestamp}] [BOMBUCKS SHILL] 🚨")
     print(message)
     print("-" * 26)
 
@@ -25,4 +26,6 @@ if __name__ == "__main__":
     while True:
         schedule.run_pending()
         time.sleep(1)
+
+    main()
 
